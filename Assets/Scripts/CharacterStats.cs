@@ -29,8 +29,8 @@ public class CharacterStats : MonoBehaviour
         if(curEnergy > maxEnergy) {
             curEnergy = maxEnergy;
         }
-        healthBar.SetHealth(curHealth);
-        energyBar.SetEnergy(curEnergy);
+        healthBar?.SetHealth(curHealth);
+        energyBar?.SetEnergy(curEnergy);
     }
 
     public void takeDamage( int damage )
