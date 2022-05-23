@@ -6,23 +6,13 @@ using UnityEngine.UI;
 public class EnergyBar : MonoBehaviour
 {
     public Slider energyBar;
-    public CharacterStats playerStats;
-
-    
 
     // Start is called before the first frame update
-    void Start()
+    public void Initialize(CharacterStats stats)
     {
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterStats>();
         energyBar = GetComponent<Slider>();
-        energyBar.maxValue = playerStats.maxEnergy;
-        energyBar.value = playerStats.maxEnergy;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        energyBar.maxValue = stats.maxEnergy;
+        energyBar.value = stats.maxEnergy;
     }
 
     public void SetEnergy(float en)

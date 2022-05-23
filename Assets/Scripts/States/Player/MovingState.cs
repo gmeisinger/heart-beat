@@ -12,9 +12,9 @@ public class MovingState : State
 
     private CharacterStats stats;
 
-    public MovingState(Player player, StateMachine stateMachine) : base(player, stateMachine)
+    public MovingState(Character character, StateMachine stateMachine) : base(character, stateMachine)
     {
-        stats = player.GetComponent<CharacterStats>();
+        stats = character.GetComponent<CharacterStats>();
     }
 
     public override void Enter()
@@ -34,7 +34,7 @@ public class MovingState : State
         base.HandleInput();
         verticalInput = Input.GetAxisRaw("Vertical");
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        player.updateAnimation(horizontalInput, verticalInput);
+        character.updateAnimation(horizontalInput, verticalInput);
 
         dodge = Input.GetButtonDown("Jump");
         shoot = false;//Input.GetButtonDown("Fire1");
@@ -46,20 +46,20 @@ public class MovingState : State
         {
             if(stats.curEnergy >= 50.0f) {
                 stats.loseEnergy(50.0f);
-                stateMachine.ChangeState(player.dodging);
+                stateMachine.ChangeState(character.states["dodging"]);
             }
         }
         else if(shoot)
         {
-            Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition) - player.transform.position;
-            player.fireBullet(target);
+            Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition) - character.transform.position;
+            //character.fireBullet(target);
         }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.updateMovement(horizontalInput, verticalInput);
+        character.updateMovement(horizontalInput, verticalInput);
     }
 
 }

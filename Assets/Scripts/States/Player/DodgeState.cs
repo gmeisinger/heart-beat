@@ -8,14 +8,14 @@ public class DodgeState : State
 
     private float speed = 1.2f;
 
-    public DodgeState(Player player, StateMachine stateMachine) : base(player, stateMachine)
+    public DodgeState(Character character, StateMachine stateMachine) : base(character, stateMachine)
     {
     }
 
     public override void Enter()
     {
         base.Enter();
-        direction = player.moveDirection;
+        direction = character.moveDirection;
         if(direction.x > 0) {
             direction.x = 1;
         }
@@ -28,13 +28,13 @@ public class DodgeState : State
         else if(direction.y < 0) {
             direction.y = -1;
         }
-        player.triggerAnimation("dodge");
+        character.triggerAnimation("dodge");
     }
 
     public override void Exit()
     {
         base.Exit();
-        player.triggerAnimation("reset");
+        character.triggerAnimation("reset");
     }
 
     public override void HandleInput()
@@ -44,15 +44,15 @@ public class DodgeState : State
 
     public override void LogicUpdate()
     {
-        if(player.isAnimationFinished())
+        if(character.isAnimationFinished())
         {
-            stateMachine.ChangeState(player.moving);
+            stateMachine.ChangeState(character.states["moving"]);
         }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        player.updateMovement(direction.x, direction.y, speed);
+        character.updateMovement(direction.x, direction.y, speed);
     }
 }

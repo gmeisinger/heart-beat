@@ -5,12 +5,12 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
     public int curHealth = 0;
-    public int maxHealth = 100;
+    public int maxHealth {get;} = 100;
 
     public float curEnergy = 0;
-    public float maxEnergy = 100;
+    public float maxEnergy {get;} = 100;
 
-    private float energyPerSecond = 25.0f;
+    private float energyPerSecond = 30.0f;
 
     public HealthBar healthBar;
     public EnergyBar energyBar;
@@ -20,6 +20,8 @@ public class CharacterStats : MonoBehaviour
     {
         curHealth = maxHealth;
         curEnergy = maxEnergy;
+		energyBar?.Initialize(this);
+		healthBar?.Initialize(this);
     }
 
     // Update is called once per frame
