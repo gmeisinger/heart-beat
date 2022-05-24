@@ -3,27 +3,14 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public abstract class Character : Entity
+public class Character : Entity
 {
-	public Vector2 moveDirection;
-    protected float moveLimiter = 0.7f;
-    protected bool up = false;
-
-    //this is set in inspector
-    public float runSpeed = 150.0f;
-
-    // States
-    public StateMachine SM;
-	public Dictionary<string, State> states = new Dictionary<string, State>();
-
-	// animation vars
-    protected Rigidbody2D body;
-    protected SpriteRenderer bodySprite;
+	
     protected SpriteRenderer shirtSprite;
     protected SpriteRenderer pantsSprite;
     protected SpriteRenderer hairSprite;
     protected SpriteRenderer handsSprite;
-    protected Animator animator;
+    
     protected Animator shirtAnimator;
     protected Animator pantsAnimator;
     protected Animator hairAnimator;
@@ -32,22 +19,37 @@ public abstract class Character : Entity
     protected SpriteRenderer[] renderers;
     protected Dictionary<string, Sprite[]> sprites;// = new Dictionary<string, Sprite[]>();
 
-    public Color skinColor;
+    
     public Color shirtColor;
     public Color pantsColor;
     public Color hairColor;
 
-	public abstract void updateMovement(float h, float v);
-	public abstract void updateMovement(float h, float v, float speed);
+	public virtual void updateMovement(float h, float v, float speed=1.0f)
+    {
+        if (h != 0 && v != 0) // Check for diagonal movement
+        {
+            // limit movement speed diagonally, so you move at 70% speed
+            h *= moveLimiter;
+            v *= moveLimiter;
+        }
+
+        float spd = runSpeed * speed;
+        Vector2 velocity = new Vector2(h * spd, v * spd);
+        //body.MovePosition(body.position + velocity);
+        
+
+        if(body.velocity != velocity)
+        {
+            body.velocity = velocity;
+        }
+
+        moveDirection = new Vector2(h, v);
+    }
 
     // Start is called before the first frame update
-    public virtual void Start()
+    public override void Start()
     {
-		SM = new StateMachine();
-        body = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        bodySprite = GetComponent<SpriteRenderer>();
-        bodySprite.color = skinColor;
+		base.Start();
         // layers
         shirtSprite = transform.Find("Shirt").GetComponent<SpriteRenderer>();
         shirtSprite.color = shirtColor;
@@ -57,6 +59,10 @@ public abstract class Character : Entity
         hairSprite.color = hairColor;
         handsSprite = transform.Find("Hands").GetComponent<SpriteRenderer>();
         handsSprite.color = skinColor;
+		shirtSprite.material = Instantiate<Material>(bodySprite.material);
+		pantsSprite.material = Instantiate<Material>(bodySprite.material);
+		hairSprite.material = Instantiate<Material>(bodySprite.material);
+		handsSprite.material = Instantiate<Material>(bodySprite.material);
         // hands still has an animator
         handsAnimator = transform.Find("Hands").GetComponent<Animator>();
         renderers = new SpriteRenderer[] {shirtSprite, pantsSprite, hairSprite, handsSprite};
@@ -64,19 +70,13 @@ public abstract class Character : Entity
         Debug.Log("Character start.");
     }
 
-	public void Update()
+	protected override void Update()
     {
         syncSprites();
-        SM.CurrentState.HandleInput();
-        SM.CurrentState.LogicUpdate();
+        base.Update();
     }
 
-    public void FixedUpdate()
-    {
-        SM.CurrentState.PhysicsUpdate();
-    }
-
-	public void updateAnimation(float horizontal, float vertical)
+	public override void updateAnimation(float horizontal, float vertical)
     {
         //flip sprite
         if(!bodySprite.flipX && horizontal < 0.0) {
@@ -113,15 +113,23 @@ public abstract class Character : Entity
         //syncSprites();
     }
 
-	public void triggerAnimation(string trigger)
-    {
-        animator.SetTrigger(trigger);
-    }
+	public override void setShaderBool(string property, bool value)
+	{
+		bodySprite.material.SetInt(property, value ? 1 : 0);
+		shirtSprite.material.SetInt(property, value ? 1 : 0);
+		pantsSprite.material.SetInt(property, value ? 1 : 0);
+		hairSprite.material.SetInt(property, value ? 1 : 0);
+		handsSprite.material.SetInt(property, value ? 1 : 0);
+	}
 
-    public bool isAnimationFinished()
-    {
-        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1;
-    }
+	public override void setShaderFloat(string property, float value)
+	{
+		bodySprite.material.SetFloat(property, value);
+		shirtSprite.material.SetFloat(property, value);
+		pantsSprite.material.SetFloat(property, value);
+		hairSprite.material.SetFloat(property, value);
+		handsSprite.material.SetFloat(property, value);
+	}
 
     // load sprites from resources
     public Dictionary<string, Sprite[]> loadSprites()
