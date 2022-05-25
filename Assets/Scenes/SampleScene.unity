@@ -146,6 +146,18 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 5.509697
       objectReference: {fileID: 0}
+    - target: {fileID: 1531682610122513840, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531682610122513840, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 4.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531682610122513843, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1531682610122513844, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
       propertyPath: m_BodyType
       value: 2
@@ -203,9 +215,21 @@ PrefabInstance:
       value: Target
       objectReference: {fileID: 0}
     - target: {fileID: 1531682610122513849, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
+      propertyPath: m_Size.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531682610122513849, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
+      propertyPath: m_Size.y
+      value: 4.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531682610122513849, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -3561148701943319872, guid: 225e34ec1ea89544ba51d317ed00bae8, type: 3}
+      objectReference: {fileID: 2211041478255010427, guid: 758ae88c5c796bb45bac8bf504fa5cc6, type: 3}
+    - target: {fileID: 1531682610122513849, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fc2420ba84a1cb4b87a1dd648cfb369, type: 3}
 --- !u!1 &152296509
@@ -634,6 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e547df7f4053d1343add7675999d1168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
   moveDirection: {x: 0, y: 0}
   runSpeed: 150
   skinColor: {r: 0.8113208, g: 0.6736191, b: 0.31763974, a: 1}
@@ -656,10 +681,6 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3667679091494017991, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f8151b6ad4cf95046bda0ec740dc300f, type: 2}
     - target: {fileID: 3667679091494017992, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -712,6 +733,22 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1714266619}
+    - target: {fileID: 3667679091494017997, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755632847636815733, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
+      propertyPath: m_Size.x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755632847636815733, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
+      propertyPath: m_Size.y
+      value: 66
+      objectReference: {fileID: 0}
+    - target: {fileID: 3755632847636815733, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3755632847636815733, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -724,6 +761,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f8151b6ad4cf95046bda0ec740dc300f, type: 2}
+    - target: {fileID: 7998235601040675943, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8869417229611291946, guid: 255e74a38fa898e41803d8cc1bc76d8a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
